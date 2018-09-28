@@ -22,6 +22,11 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 # install maven dependency packages (keep in image)
 COPY . /usr/src/app
-RUN mvn install && rm -rf target
+RUN mvn install
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "target/book_store-0.0.1-SNAPSHOT.jar"]
+
 # copy other source files (keep in image)
 COPY src /usr/src/app/src
