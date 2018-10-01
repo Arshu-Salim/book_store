@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bookstoreservice
+  labels:
+    app: bookstoreservice
+spec:
+  ports:
+  - port: 80
+    targetPort: 4000
+  type: NodePort
+  selector:
+    app: bookstorepod
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: bookstorereplica
+  labels:
+    app: bookstorepod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bookstorepod
+  template:
+    metadata:
+      labels:
+        app: bookstorepod
+    spec:
+      containers:
+      - name: bookstorecontainer
+        image: tejap/book_store:17
+        ports:
+        - containerPort: 4000
