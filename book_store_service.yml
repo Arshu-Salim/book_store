@@ -6,8 +6,7 @@ metadata:
     app: bookstoreservice
 spec:
   ports:
-  - port: 80
-    targetPort: 4000
+  - port: 8080
   type: NodePort
   selector:
     app: bookstorepod
@@ -17,9 +16,9 @@ kind: ReplicaSet
 metadata:
   name: bookstorereplica
   labels:
-    app: bookstorepod
+    app: bookstorers
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: bookstorepod
@@ -32,4 +31,4 @@ spec:
       - name: bookstorecontainer
         image: tejap/book_store:17
         ports:
-        - containerPort: 4000
+        - containerPort: 8080
